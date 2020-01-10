@@ -20,18 +20,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
-        let url = URL(string: "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_adv_example_hevc/master.m3u8")!
-        // Create an AVPlayer, passing it the HTTP Live Streaming URL.
-        let player = AVPlayer(url: url)
-
-        // Create a new AVPlayerViewController and pass it a reference to the player.
-        let controller = AVPlayerViewController()
-        controller.player = player
-player.play()
-        // Modally present the player and call the player's play() method when complete.
-//        present(controller, animated: true) {
-//            player.play()
-//        }
+   let view = ffmpegTest(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+        
+        var controller = UIViewController()
+        controller.view.addSubview(view)
+        view.play()
+//        let url = URL(string: "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_adv_example_hevc/master.m3u8")!
+//        // Create an AVPlayer, passing it the HTTP Live Streaming URL.
+//        let player = AVPlayer(url: url)
+//
+//        // Create a new AVPlayerViewController and pass it a reference to the player.
+//        let controller = AVPlayerViewController()
+//        controller.player = player
+//        player.play()
+        
+        
         
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView()
@@ -39,7 +42,7 @@ player.play()
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
 //            window.rootViewController = UIHostingController(rootView: contentView)
-            window.rootViewController = controller
+        window.rootViewController = controller
             self.window = window
             window.makeKeyAndVisible()
         }
