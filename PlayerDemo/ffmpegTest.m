@@ -89,6 +89,7 @@
         self.videoPath = [[NSBundle mainBundle] pathForResource:@"video" ofType:@"mp4"];
 //        self.videoPath = @"https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_adv_example_hevc/master.m3u8";
 //         self.videoPath =@"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4";
+        [self play];
     }
     return self;
 }

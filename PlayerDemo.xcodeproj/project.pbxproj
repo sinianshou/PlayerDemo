@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB14DE2023C851B900EBE98B /* m3u8Test.m in Sources */ = {isa = PBXBuildFile; fileRef = EB14DE1F23C851B900EBE98B /* m3u8Test.m */; };
+		EB3A1F4223D157EF00AC09EE /* MTKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3A1F4123D157EF00AC09EE /* MTKManager.m */; };
+		EB3A1F4523D15D0400AC09EE /* shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = EB3A1F4423D15D0400AC09EE /* shaders.metal */; };
+		EB3A1F4823D160AD00AC09EE /* LYAssetReader.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3A1F4723D160AD00AC09EE /* LYAssetReader.m */; };
 		EB456F7623B600E3000C3939 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB456F7523B600E3000C3939 /* AppDelegate.swift */; };
-		EB456F7823B600E3000C3939 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB456F7723B600E3000C3939 /* SceneDelegate.swift */; };
-		EB456F7A23B600E3000C3939 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB456F7923B600E3000C3939 /* ContentView.swift */; };
 		EB456F7C23B600E6000C3939 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB456F7B23B600E6000C3939 /* Assets.xcassets */; };
 		EB456F7F23B600E6000C3939 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB456F7E23B600E6000C3939 /* Preview Assets.xcassets */; };
 		EB456F8223B600E6000C3939 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB456F8023B600E6000C3939 /* LaunchScreen.storyboard */; };
@@ -59,10 +61,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EB14DE1E23C851B900EBE98B /* m3u8Test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = m3u8Test.h; sourceTree = "<group>"; };
+		EB14DE1F23C851B900EBE98B /* m3u8Test.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = m3u8Test.m; sourceTree = "<group>"; };
+		EB3A1F4023D157EF00AC09EE /* MTKManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTKManager.h; sourceTree = "<group>"; };
+		EB3A1F4123D157EF00AC09EE /* MTKManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTKManager.m; sourceTree = "<group>"; };
+		EB3A1F4323D15C8200AC09EE /* LYShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LYShaderTypes.h; sourceTree = "<group>"; };
+		EB3A1F4423D15D0400AC09EE /* shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = shaders.metal; sourceTree = "<group>"; };
+		EB3A1F4623D160AD00AC09EE /* LYAssetReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LYAssetReader.h; sourceTree = "<group>"; };
+		EB3A1F4723D160AD00AC09EE /* LYAssetReader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LYAssetReader.m; sourceTree = "<group>"; };
 		EB456F7223B600E3000C3939 /* PlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB456F7523B600E3000C3939 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EB456F7723B600E3000C3939 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EB456F7923B600E3000C3939 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EB456F7B23B600E6000C3939 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB456F7E23B600E6000C3939 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EB456F8123B600E6000C3939 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -288,14 +296,20 @@
 			children = (
 				EB8E9CC823C3590B00F3BBC5 /* SupportFiles */,
 				EB456F7523B600E3000C3939 /* AppDelegate.swift */,
-				EB456F7723B600E3000C3939 /* SceneDelegate.swift */,
-				EB456F7923B600E3000C3939 /* ContentView.swift */,
 				EB456F7B23B600E6000C3939 /* Assets.xcassets */,
 				EB456F8023B600E6000C3939 /* LaunchScreen.storyboard */,
 				EB456F8323B600E6000C3939 /* Info.plist */,
 				EB456F7D23B600E6000C3939 /* Preview Content */,
 				EB8E9CCC23C359BF00F3BBC5 /* ffmpegTest.h */,
 				EB8E9CCD23C359BF00F3BBC5 /* ffmpegTest.m */,
+				EB14DE1E23C851B900EBE98B /* m3u8Test.h */,
+				EB14DE1F23C851B900EBE98B /* m3u8Test.m */,
+				EB3A1F4623D160AD00AC09EE /* LYAssetReader.h */,
+				EB3A1F4723D160AD00AC09EE /* LYAssetReader.m */,
+				EB3A1F4023D157EF00AC09EE /* MTKManager.h */,
+				EB3A1F4123D157EF00AC09EE /* MTKManager.m */,
+				EB3A1F4423D15D0400AC09EE /* shaders.metal */,
+				EB3A1F4323D15C8200AC09EE /* LYShaderTypes.h */,
 				EB8E9CCB23C359BE00F3BBC5 /* PlayerDemo-Bridging-Header.h */,
 			);
 			path = PlayerDemo;
@@ -715,18 +729,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB14DE2023C851B900EBE98B /* m3u8Test.m in Sources */,
 				EB8E9D3023C46EB400F3BBC5 /* ffmpeg_hw.c in Sources */,
+				EB3A1F4823D160AD00AC09EE /* LYAssetReader.m in Sources */,
 				EB8E9D2D23C46EB400F3BBC5 /* ffmpeg_cuvid.c in Sources */,
 				EB8E9D3223C46EB400F3BBC5 /* cmdutils.c in Sources */,
 				EB8E9D2C23C46EB400F3BBC5 /* ffmpeg_opt.c in Sources */,
 				EB8E9D3523C46EB400F3BBC5 /* ttt.c in Sources */,
 				EB8E9D2F23C46EB400F3BBC5 /* ffmpeg_filter.c in Sources */,
 				EB8E9D3423C46EB400F3BBC5 /* ffmpeg.c in Sources */,
+				EB3A1F4223D157EF00AC09EE /* MTKManager.m in Sources */,
 				EB8E9CCE23C359BF00F3BBC5 /* ffmpegTest.m in Sources */,
 				EB456F7623B600E3000C3939 /* AppDelegate.swift in Sources */,
-				EB456F7823B600E3000C3939 /* SceneDelegate.swift in Sources */,
+				EB3A1F4523D15D0400AC09EE /* shaders.metal in Sources */,
 				EB8E9D3623C46EB400F3BBC5 /* ffmpeg_videotoolbox.c in Sources */,
-				EB456F7A23B600E3000C3939 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -823,7 +839,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -877,7 +893,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
