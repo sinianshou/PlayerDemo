@@ -17,6 +17,8 @@
 		EB456F8223B600E6000C3939 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB456F8023B600E6000C3939 /* LaunchScreen.storyboard */; };
 		EB456F8D23B600E6000C3939 /* PlayerDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB456F8C23B600E6000C3939 /* PlayerDemoTests.swift */; };
 		EB456F9823B600E6000C3939 /* PlayerDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB456F9723B600E6000C3939 /* PlayerDemoUITests.swift */; };
+		EB639AF523D2D12200026310 /* testMTK.m in Sources */ = {isa = PBXBuildFile; fileRef = EB639AF423D2D12200026310 /* testMTK.m */; };
+		EB639AF723D2FF6300026310 /* timg.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB639AF623D2FF6300026310 /* timg.jpeg */; };
 		EB8E9CBD23C3586300F3BBC5 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9CBC23C3586300F3BBC5 /* libbz2.tbd */; };
 		EB8E9CBF23C3586F00F3BBC5 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9CBE23C3586F00F3BBC5 /* libiconv.tbd */; };
 		EB8E9CC123C3587900F3BBC5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9CC023C3587900F3BBC5 /* libz.tbd */; };
@@ -81,6 +83,9 @@
 		EB456F9323B600E6000C3939 /* PlayerDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlayerDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB456F9723B600E6000C3939 /* PlayerDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDemoUITests.swift; sourceTree = "<group>"; };
 		EB456F9923B600E6000C3939 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EB639AF323D2D12200026310 /* testMTK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testMTK.h; sourceTree = "<group>"; };
+		EB639AF423D2D12200026310 /* testMTK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = testMTK.m; sourceTree = "<group>"; };
+		EB639AF623D2FF6300026310 /* timg.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = timg.jpeg; sourceTree = "<group>"; };
 		EB8E9CBA23C3585400F3BBC5 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = ../../../../usr/lib/libz.1.dylib; sourceTree = "<group>"; };
 		EB8E9CBC23C3586300F3BBC5 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		EB8E9CBE23C3586F00F3BBC5 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
@@ -306,8 +311,11 @@
 				EB14DE1F23C851B900EBE98B /* m3u8Test.m */,
 				EB3A1F4623D160AD00AC09EE /* LYAssetReader.h */,
 				EB3A1F4723D160AD00AC09EE /* LYAssetReader.m */,
+				EB639AF623D2FF6300026310 /* timg.jpeg */,
 				EB3A1F4023D157EF00AC09EE /* MTKManager.h */,
 				EB3A1F4123D157EF00AC09EE /* MTKManager.m */,
+				EB639AF323D2D12200026310 /* testMTK.h */,
+				EB639AF423D2D12200026310 /* testMTK.m */,
 				EB3A1F4423D15D0400AC09EE /* shaders.metal */,
 				EB3A1F4323D15C8200AC09EE /* LYShaderTypes.h */,
 				EB8E9CCB23C359BE00F3BBC5 /* PlayerDemo-Bridging-Header.h */,
@@ -701,6 +709,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB639AF723D2FF6300026310 /* timg.jpeg in Resources */,
 				EB8E9DC823C48D7100F3BBC5 /* video.mp4 in Resources */,
 				EB456F8223B600E6000C3939 /* LaunchScreen.storyboard in Resources */,
 				EB456F7F23B600E6000C3939 /* Preview Assets.xcassets in Resources */,
@@ -743,6 +752,7 @@
 				EB456F7623B600E3000C3939 /* AppDelegate.swift in Sources */,
 				EB3A1F4523D15D0400AC09EE /* shaders.metal in Sources */,
 				EB8E9D3623C46EB400F3BBC5 /* ffmpeg_videotoolbox.c in Sources */,
+				EB639AF523D2D12200026310 /* testMTK.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
