@@ -26,7 +26,7 @@ var window: UIWindow?
 //            print("Setting category to AVAudioSessionCategoryPlayback failed.")
 //        }
         
-        var controller = MTKManager()
+        var controller = TestVC()
                 
         //        let url = URL(string: "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_adv_example_hevc/master.m3u8")!
         //        // Create an AVPlayer, passing it the HTTP Live Streaming URL.
