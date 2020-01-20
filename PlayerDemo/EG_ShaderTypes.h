@@ -13,18 +13,18 @@
 
 // Buffer index values shared between shader and C code to ensure Metal shader buffer inputs match
 //   Metal API buffer set calls
-typedef enum AAPLVertexInputIndex
+typedef enum EGVertex1InputIndex
 {
-    AAPLVertexInputIndexVertices     = 0,
-    AAPLVertexInputIndexViewportSize = 1,
-} AAPLVertexInputIndex;
+    EGVertex1InputIndexVertices     = 0,
+    EGVertex1InputIndexViewportSize = 1,
+} EGVertex1InputIndex;
 
 // Texture index values shared between shader and C code to ensure Metal shader buffer inputs match
 //   Metal API texture set calls
-typedef enum AAPLTextureIndex
+typedef enum EGTextureIndex
 {
-    AAPLTextureIndexBaseColor = 0,
-} AAPLTextureIndex;
+    EGTextureIndexBaseColor = 0,
+} EGTextureIndex;
 
 //  This structure defines the layout of each vertex in the array of vertices set as an input to the
 //    Metal vertex shader.  Since this header is shared between the .metal shader and C code,
@@ -38,7 +38,7 @@ typedef struct
 
     // 2D texture coordinate
     vector_float2 textureCoordinate;
-} AAPLVertex;
+} EGVertex1;
 
 typedef struct
 {
@@ -50,4 +50,23 @@ typedef struct {
     matrix_float3x3 matrix;
     vector_float3 offset;
 } EGConvertMatrix;
+
+
+//typedef enum LYVertexInputIndex
+//{
+//    LYVertexInputIndexVertices     = 0,
+//} LYVertexInputIndex;
+
+
+typedef enum EGFragmentBufferIndex
+{
+    EGFragmentInputIndexMatrix     = 0,
+} EGFragmentBufferIndex;
+
+
+typedef enum EGFragmentTextureIndex
+{
+    EGFragmentTextureIndexTextureY     = 0,
+    EGFragmentTextureIndexTextureUV     = 1,
+} EGFragmentTextureIndex;
 #endif /* EG_ShaderTypes_h */

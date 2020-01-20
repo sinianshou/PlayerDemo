@@ -10,7 +10,7 @@
 #import <MetalKit/MetalKit.h>
 //#import <GLKit/GLKit.h>
 
-#import "LYShaderTypes.h"
+#import "EG_ShaderTypes.h"
 #import "LYAssetReader.h"
 @interface MTKManager () <MTKViewDelegate>
 
@@ -98,13 +98,13 @@
     
     vector_float3 kColorConversion601FullRangeOffset = (vector_float3){ -(16.0/255.0), -0.5, -0.5}; // 这个是偏移
     
-    LYConvertMatrix matrix;
+    EGConvertMatrix matrix;
     // 设置参数
     matrix.matrix = kColorConversion601FullRangeMatrix;
     matrix.offset = kColorConversion601FullRangeOffset;
     
     self.convertMatrix = [self.mtkView.device newBufferWithBytes:&matrix
-                                                          length:sizeof(LYConvertMatrix)
+                                                          length:sizeof(EGConvertMatrix)
                                                          options:MTLResourceStorageModeShared];
 }
 
@@ -125,7 +125,7 @@
 
 // 设置顶点
 - (void)setupVertex {
-    static const LYVertex quadVertices[] =
+    static const EGVertex2 quadVertices[] =
     {   // 顶点坐标，分别是x、y、z、w；    纹理坐标，x、y；
         { {  1.0, -1.0, 0.0, 1.0 },  { 1.f, 1.f } },
         { { -1.0, -1.0, 0.0, 1.0 },  { 0.f, 1.f } },
@@ -138,7 +138,7 @@
     self.vertices = [self.mtkView.device newBufferWithBytes:quadVertices
                                                      length:sizeof(quadVertices)
                                                     options:MTLResourceStorageModeShared]; // 创建顶点缓存
-    self.numVertices = sizeof(quadVertices) / sizeof(LYVertex); // 顶点个数
+    self.numVertices = sizeof(quadVertices) / sizeof(EGVertex2); // 顶点个数
 }
 
 // 设置纹理
@@ -180,9 +180,9 @@
     if(textureY != nil && textureUV != nil)
     {
         [encoder setFragmentTexture:textureY
-                            atIndex:LYFragmentTextureIndexTextureY]; // 设置纹理
+                            atIndex:EGFragmentTextureIndexTextureY]; // 设置纹理
         [encoder setFragmentTexture:textureUV
-                            atIndex:LYFragmentTextureIndexTextureUV]; // 设置纹理
+                            atIndex:EGFragmentTextureIndexTextureUV]; // 设置纹理
     }
     CFRelease(sampleBuffer); // 记得释放
 }
@@ -211,12 +211,12 @@
         
         [renderEncoder setVertexBuffer:self.vertices
                                 offset:0
-                               atIndex:LYVertexInputIndexVertices]; // 设置顶点缓存
+                               atIndex:EGVertex1InputIndexVertices]; // 设置顶点缓存
         
         [self setupTextureWithEncoder:renderEncoder buffer:sampleBuffer];
         [renderEncoder setFragmentBuffer:self.convertMatrix
                                   offset:0
-                                 atIndex:LYFragmentInputIndexMatrix];
+                                 atIndex:EGFragmentInputIndexMatrix];
         
         [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle
                           vertexStart:0

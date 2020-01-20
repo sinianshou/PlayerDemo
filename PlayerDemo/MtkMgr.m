@@ -18,7 +18,7 @@ typedef enum{
 
 // Header shared between C code here, which executes Metal API commands, and .metal files, which
 //   uses these types as inputs to the shaders
-#import "AAPLShaderTypes.h"
+#import "EG_ShaderTypes.h"
 static MtkMgr *_oneSharedMM;
 
 @interface MtkMgr ()<MTKViewDelegate>{
@@ -89,7 +89,7 @@ static MtkMgr *_oneSharedMM;
 - (void)setupVertex {
     
     // Set up a simple MTLBuffer with vertices which include texture coordinates
-    static const AAPLVertex quadVertices[] =
+    static const EGVertex1 quadVertices[] =
     {
         // Pixel positions, Texture coordinates
         { {  250,  -250 },  { 1.f, 1.f } },
@@ -101,16 +101,16 @@ static MtkMgr *_oneSharedMM;
         { {  250,   250 },  { 1.f, 0.f } },
     };
 
-    //    static const LYVertex quadVertices[] =
-    //    {   // 顶点坐标，分别是x、y、z、w；    纹理坐标，x、y；
-    //        { {  1.0, -1.0, 0.0, 1.0 },  { 1.f, 1.f } },
-    //        { { -1.0, -1.0, 0.0, 1.0 },  { 0.f, 1.f } },
-    //        { { -1.0,  1.0, 0.0, 1.0 },  { 0.f, 0.f } },
-    //
-    //        { {  1.0, -1.0, 0.0, 1.0 },  { 1.f, 1.f } },
-    //        { { -1.0,  1.0, 0.0, 1.0 },  { 0.f, 0.f } },
-    //        { {  1.0,  1.0, 0.0, 1.0 },  { 1.f, 0.f } },
-    //    };
+//        static const EGVertex2 quadVertices[] =
+//        {   // 顶点坐标，分别是x、y、z、w；    纹理坐标，x、y；
+//            { {  1.0, -1.0, 0.0, 1.0 },  { 1.f, 1.f } },
+//            { { -1.0, -1.0, 0.0, 1.0 },  { 0.f, 1.f } },
+//            { { -1.0,  1.0, 0.0, 1.0 },  { 0.f, 0.f } },
+//
+//            { {  1.0, -1.0, 0.0, 1.0 },  { 1.f, 1.f } },
+//            { { -1.0,  1.0, 0.0, 1.0 },  { 0.f, 0.f } },
+//            { {  1.0,  1.0, 0.0, 1.0 },  { 1.f, 0.f } },
+//        };
     
     // Create a vertex buffer, and initialize it with the quadVertices array
     self.vertices = [_mtkView.device newBufferWithBytes:quadVertices
@@ -118,7 +118,7 @@ static MtkMgr *_oneSharedMM;
                                     options:MTLResourceStorageModeShared];
 
     // Calculate the number of vertices by dividing the byte length by the size of each vertex
-    self.numVertices = sizeof(quadVertices) / sizeof(AAPLVertex);
+    self.numVertices = sizeof(quadVertices) / sizeof(EGVertex1);
     
 //    self.numVertices = sizeof(quadVertices) / sizeof(LYVertex); // 顶点个数
 }
@@ -241,9 +241,9 @@ static MtkMgr *_oneSharedMM;
         [texArr addObject:textureY];
         [texArr addObject:textureUV];
 //        [encoder setFragmentTexture:textureY
-//                            atIndex:LYFragmentTextureIndexTextureY]; // 设置纹理
+//                            atIndex:EGFragmentTextureIndexTextureY]; // 设置纹理
 //        [encoder setFragmentTexture:textureUV
-//                            atIndex:LYFragmentTextureIndexTextureUV]; // 设置纹理
+//                            atIndex:EGFragmentTextureIndexTextureUV]; // 设置纹理
     }
     return texArr;
 }
@@ -298,15 +298,15 @@ static MtkMgr *_oneSharedMM;
 
         [renderEncoder setVertexBuffer:self.vertices
                                 offset:0
-                              atIndex:AAPLVertexInputIndexVertices];
+                              atIndex:EGVertex1InputIndexVertices];
 
         [renderEncoder setVertexBytes:&_viewportSize
                                length:sizeof(_viewportSize)
-                              atIndex:AAPLVertexInputIndexViewportSize];
+                              atIndex:EGVertex1InputIndexViewportSize];
 
-        // Set the texture object.  The AAPLTextureIndexBaseColor enum value corresponds
+        // Set the texture object.  The EGTextureIndexBaseColor enum value corresponds
         ///  to the 'colorMap' argument in the 'samplingShader' function because its
-        //   texture attribute qualifier also uses AAPLTextureIndexBaseColor for its index.
+        //   texture attribute qualifier also uses EGTextureIndexBaseColor for its index.
         NSMutableArray<id<MTLTexture>> * texArr = [[NSMutableArray alloc] init];
         CVPixelBufferRef pixelBuffer = NULL;
         switch (self.mediaType) {
@@ -326,7 +326,7 @@ static MtkMgr *_oneSharedMM;
             [renderEncoder setFragmentTexture:texArr[i]
                                       atIndex:i];
 //            [renderEncoder setFragmentTexture:texArr[i]
-//                                      atIndex:AAPLTextureIndexBaseColor];
+//                                      atIndex:EGTextureIndexBaseColor];
         }
         
 //        if (pixelBuffer) {
