@@ -39,6 +39,7 @@ struct XDXParseAudioDataInfo {
 
 @interface m3u8Test : UIView
 - (void)play;
+- (CVPixelBufferRef)getBuffer;
 @end
 
 NS_ASSUME_NONNULL_END

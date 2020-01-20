@@ -8,12 +8,13 @@
 
 @import MetalKit;
 #import <Foundation/Foundation.h>
-
+@class m3u8Test;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MtkMgr : NSObject
 
 @property (nonatomic, strong) MTKView *mtkView;
+@property (nonatomic, strong) m3u8Test *m3u8T;
 
 + (nonnull instancetype)shared;
 + (nonnull instancetype)initWithMetalKitView:(nonnull MTKView *)mtkView;

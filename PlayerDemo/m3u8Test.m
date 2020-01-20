@@ -65,7 +65,11 @@
     printf("play start");
     self.isPraseSuccess = [self prase];
     [self seekTime:0.0];
-    [self decode];
+//    [self decode];
+        self.avFrame = av_frame_alloc();
+        self.frameImageWidth = _codecContext ->width;
+        self.frameImageHeight = _codecContext ->height;
+        av_init_packet(&_packet);
 }
 - (void)seekTime:(double)seconds{
     AVRational timeBase = self.formatContext -> streams[self.avStreamIndex] ->time_base;
@@ -147,25 +151,13 @@
     return true;
 }
 
--(void)decode{
-    [self decode3];
-}
--(void)decode3{
-    self.avFrame = av_frame_alloc();
-    self.frameImageWidth = _codecContext ->width;
-    self.frameImageHeight = _codecContext ->height;
-    av_init_packet(&_packet);
-    NSLog(@"current thread1 is %p %p", [NSThread currentThread], [NSThread mainThread]);
+-(CVPixelBufferRef)getBuffer{
+//    self.avFrame = av_frame_alloc();
+//    self.frameImageWidth = _codecContext ->width;
+//    self.frameImageHeight = _codecContext ->height;
+//    av_init_packet(&_packet);
     
-    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-    self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-    //开始时间
-    dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, 3.0 * NSEC_PER_SEC);
-    //间隔时间
-    uint64_t interval = 1/self.fps * NSEC_PER_SEC;
-    dispatch_source_set_timer(self.timer, start, interval, 0);
-    //设置回调
-    dispatch_source_set_event_handler(self.timer, ^{
+    
         
         NSLog(@"current thread2 is %p", [NSThread currentThread]);
         int decodeFinished = 0;
@@ -199,6 +191,69 @@
         }
         //        return  decodeFinished !=0;
         
+        if ( !self->_avFrame ->data[0])
+        {
+            return NULL;
+        }
+        
+        CVPixelBufferRef pixelBuffer = [self converCVPixelBufferRefFromAVFrame:self->_avFrame];
+    return pixelBuffer;
+    
+}
+-(void)decode{
+    [self decode3];
+}
+-(void)decode3{
+    self.avFrame = av_frame_alloc();
+    self.frameImageWidth = _codecContext ->width;
+    self.frameImageHeight = _codecContext ->height;
+    av_init_packet(&_packet);
+    
+
+    NSLog(@"current thread1 is %p %p", [NSThread currentThread], [NSThread mainThread]);
+
+    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+    self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    //开始时间
+    dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, 3.0 * NSEC_PER_SEC);
+    //间隔时间
+    uint64_t interval = 1/self.fps * NSEC_PER_SEC;
+    dispatch_source_set_timer(self.timer, start, interval, 0);
+    //设置回调
+    dispatch_source_set_event_handler(self.timer, ^{
+
+        NSLog(@"current thread2 is %p", [NSThread currentThread]);
+        int decodeFinished = 0;
+
+        while (!decodeFinished && av_read_frame(self->_formatContext, &(self->_packet)) >=0 ) // 读取每一帧数据
+        {
+            NSLog(@"每帧数据%d",self->_avStreamIndex);
+            if (self->_packet.stream_index == self->_avStreamIndex) // 解码前的数据
+            {
+                // 解码数据
+                // 解码一帧视频数据，存储到AVFrame中
+                avcodec_decode_video2(self->_codecContext,self->_avFrame, &decodeFinished, &self->_packet);
+                //                int re = avcodec_send_packet(self->_codecContext, &(self->_packet));
+                //                NSLog(@"avcodec_send_packet %d",re);
+                //                    int ret = avcodec_receive_frame(self->_codecContext, self->_avFrame);
+                //                    NSLog(@"avcodec_receive_frame %d",ret);
+            }
+        }
+
+        if (decodeFinished == 0 )
+        {
+            // 释放frame
+            av_packet_unref(&self->_packet);
+            // 释放YUV frame
+            av_free(self->_avFrame);
+            // 关闭解码器
+            if (self->_codecContext) avcodec_close(self->_codecContext);
+            // 关闭文件
+            if (self->_formatContext) avformat_close_input(&self->_formatContext);
+            avformat_network_deinit();
+        }
+        //        return  decodeFinished !=0;
+
         if (decodeFinished ==0)
         {
             //                    [timer invalidate];
@@ -209,10 +264,10 @@
         {
             return;
         }
-        
+
         CVPixelBufferRef pixelBuffer = [self converCVPixelBufferRefFromAVFrame:self->_avFrame];
         UIImage*img = [self converUIImageFromCVPixelBufferRef:pixelBuffer];
-        
+
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self.imgView setImage:img];
         }];

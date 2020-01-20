@@ -27,6 +27,7 @@ var window: UIWindow?
 //        }
         
         var controller = TestVC()
+//        var controller = MTKManager()
                 
         //        let url = URL(string: "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_adv_example_hevc/master.m3u8")!
         //        // Create an AVPlayer, passing it the HTTP Live Streaming URL.

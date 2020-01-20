@@ -14,6 +14,7 @@ typedef enum{
 } MediaType;
 
 #import "MtkMgr.h"
+#import "m3u8Test.h"
 
 // Header shared between C code here, which executes Metal API commands, and .metal files, which
 //   uses these types as inputs to the shaders
@@ -26,6 +27,7 @@ static MtkMgr *_oneSharedMM;
 
 @property (nonatomic, strong) NSURL* fileUrl;
 @property (nonatomic, assign) MediaType mediaType;
+@property (nonatomic, assign) CVMetalTextureCacheRef textureCache;
 
 // data
 @property (nonatomic, assign) vector_uint2 viewportSize;
@@ -51,9 +53,41 @@ static MtkMgr *_oneSharedMM;
 }
 - (void)initMtkView{
     _mtkView.device = MTLCreateSystemDefaultDevice();
+    _mtkView.preferredFramesPerSecond = 30;
     NSAssert(_mtkView.device, @"Metal is not supported on this device");
+    CVMetalTextureCacheCreate(NULL, NULL, _mtkView.device, NULL, &_textureCache); // TextureCache的创建
+    [self setupPipeline];
+    [self setupVertex];
+}
 
+// 设置渲染管道
+-(void)setupPipeline {
+    
+    /// Create the render pipeline.
 
+    // Load the shaders from the default library
+    id<MTLLibrary> defaultLibrary = [self.mtkView.device newDefaultLibrary];
+    id<MTLFunction> vertexFunction = [defaultLibrary newFunctionWithName:@"vertexShader"];
+    id<MTLFunction> fragmentFunction = [defaultLibrary newFunctionWithName:@"samplingShader"];
+
+    // Set up a descriptor for creating a pipeline state object
+    MTLRenderPipelineDescriptor *pipelineStateDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
+    pipelineStateDescriptor.label = @"Texturing Pipeline";
+    pipelineStateDescriptor.vertexFunction = vertexFunction;
+    pipelineStateDescriptor.fragmentFunction = fragmentFunction;
+    pipelineStateDescriptor.colorAttachments[0].pixelFormat = self.mtkView.colorPixelFormat;
+
+    NSError *error = NULL;
+    self.pipelineState = [self.mtkView.device newRenderPipelineStateWithDescriptor:pipelineStateDescriptor
+                                                             error:&error];
+
+    NSAssert(self.pipelineState, @"Failed to created pipeline state, error %@", error);
+    
+    self.commandQueue = [self.mtkView.device newCommandQueue]; // CommandQueue是渲染指令队列，保证渲染指令有序地提交到GPU
+}
+// 设置顶点
+- (void)setupVertex {
+    
     // Set up a simple MTLBuffer with vertices which include texture coordinates
     static const AAPLVertex quadVertices[] =
     {
@@ -67,6 +101,17 @@ static MtkMgr *_oneSharedMM;
         { {  250,   250 },  { 1.f, 0.f } },
     };
 
+    //    static const LYVertex quadVertices[] =
+    //    {   // 顶点坐标，分别是x、y、z、w；    纹理坐标，x、y；
+    //        { {  1.0, -1.0, 0.0, 1.0 },  { 1.f, 1.f } },
+    //        { { -1.0, -1.0, 0.0, 1.0 },  { 0.f, 1.f } },
+    //        { { -1.0,  1.0, 0.0, 1.0 },  { 0.f, 0.f } },
+    //
+    //        { {  1.0, -1.0, 0.0, 1.0 },  { 1.f, 1.f } },
+    //        { { -1.0,  1.0, 0.0, 1.0 },  { 0.f, 0.f } },
+    //        { {  1.0,  1.0, 0.0, 1.0 },  { 1.f, 0.f } },
+    //    };
+    
     // Create a vertex buffer, and initialize it with the quadVertices array
     self.vertices = [_mtkView.device newBufferWithBytes:quadVertices
                                      length:sizeof(quadVertices)
@@ -74,28 +119,8 @@ static MtkMgr *_oneSharedMM;
 
     // Calculate the number of vertices by dividing the byte length by the size of each vertex
     self.numVertices = sizeof(quadVertices) / sizeof(AAPLVertex);
-
-    /// Create the render pipeline.
-
-    // Load the shaders from the default library
-    id<MTLLibrary> defaultLibrary = [_mtkView.device newDefaultLibrary];
-    id<MTLFunction> vertexFunction = [defaultLibrary newFunctionWithName:@"vertexShader"];
-    id<MTLFunction> fragmentFunction = [defaultLibrary newFunctionWithName:@"samplingShader"];
-
-    // Set up a descriptor for creating a pipeline state object
-    MTLRenderPipelineDescriptor *pipelineStateDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
-    pipelineStateDescriptor.label = @"Texturing Pipeline";
-    pipelineStateDescriptor.vertexFunction = vertexFunction;
-    pipelineStateDescriptor.fragmentFunction = fragmentFunction;
-    pipelineStateDescriptor.colorAttachments[0].pixelFormat = _mtkView.colorPixelFormat;
-
-    NSError *error = NULL;
-    _pipelineState = [_mtkView.device newRenderPipelineStateWithDescriptor:pipelineStateDescriptor
-                                                             error:&error];
-
-    NSAssert(_pipelineState, @"Failed to created pipeline state, error %@", error);
-
-    _commandQueue = [_mtkView.device newCommandQueue];
+    
+//    self.numVertices = sizeof(quadVertices) / sizeof(LYVertex); // 顶点个数
 }
 - (void)displayImageFile: (NSURL *) url{
     NSString * fileExtension = url.pathExtension;
@@ -175,7 +200,53 @@ static MtkMgr *_oneSharedMM;
     
     return pxbuffer;
 }
+- (NSMutableArray<id<MTLTexture>> *)getVideoTextures:(CVPixelBufferRef) pixelBuffer{
+    NSMutableArray<id<MTLTexture>> * texArr = [[NSMutableArray alloc] init];
+    
+    NSAssert(pixelBuffer, @"pixelBuffer is nil");
+    id<MTLTexture> textureY = nil;
+    id<MTLTexture> textureUV = nil;
+    // textureY 设置
+    {
+        size_t width = CVPixelBufferGetWidthOfPlane(pixelBuffer, 0);
+        size_t height = CVPixelBufferGetHeightOfPlane(pixelBuffer, 0);
+        MTLPixelFormat pixelFormat = MTLPixelFormatR8Unorm; // 这里的颜色格式不是RGBA
 
+        CVMetalTextureRef texture = NULL; // CoreVideo的Metal纹理
+        CVReturn status = CVMetalTextureCacheCreateTextureFromImage(NULL, self.textureCache, pixelBuffer, NULL, pixelFormat, width, height, 0, &texture);
+        if(status == kCVReturnSuccess)
+        {
+            textureY = CVMetalTextureGetTexture(texture); // 转成Metal用的纹理
+            CFRelease(texture);
+        }
+    }
+    
+    // textureUV 设置
+    {
+        size_t width = CVPixelBufferGetWidthOfPlane(pixelBuffer, 1);
+        size_t height = CVPixelBufferGetHeightOfPlane(pixelBuffer, 1);
+        MTLPixelFormat pixelFormat = MTLPixelFormatRG8Unorm; // 2-8bit的格式
+        
+        CVMetalTextureRef texture = NULL; // CoreVideo的Metal纹理
+        CVReturn status = CVMetalTextureCacheCreateTextureFromImage(NULL, self.textureCache, pixelBuffer, NULL, pixelFormat, width, height, 1, &texture);
+        if(status == kCVReturnSuccess)
+        {
+            textureUV = CVMetalTextureGetTexture(texture); // 转成Metal用的纹理
+            CFRelease(texture);
+        }
+    }
+    
+    if(textureY != nil && textureUV != nil)
+    {
+        [texArr addObject:textureY];
+        [texArr addObject:textureUV];
+//        [encoder setFragmentTexture:textureY
+//                            atIndex:LYFragmentTextureIndexTextureY]; // 设置纹理
+//        [encoder setFragmentTexture:textureUV
+//                            atIndex:LYFragmentTextureIndexTextureUV]; // 设置纹理
+    }
+    return texArr;
+}
 #pragma __SETTER__
 - (void)setMtkView:(MTKView *)mtkView{
     _mtkView = mtkView;
@@ -215,6 +286,7 @@ static MtkMgr *_oneSharedMM;
 
     if(renderPassDescriptor != nil)
     {
+        renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(0.0, 0.5, 0.5, 1.0f); // 设置默认颜色
         id<MTLRenderCommandEncoder> renderEncoder =
         [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
         renderEncoder.label = @"MyRenderEncoder";
@@ -235,20 +307,31 @@ static MtkMgr *_oneSharedMM;
         // Set the texture object.  The AAPLTextureIndexBaseColor enum value corresponds
         ///  to the 'colorMap' argument in the 'samplingShader' function because its
         //   texture attribute qualifier also uses AAPLTextureIndexBaseColor for its index.
-        id<MTLTexture> texture = nil;
+        NSMutableArray<id<MTLTexture>> * texArr = [[NSMutableArray alloc] init];
+        CVPixelBufferRef pixelBuffer = NULL;
         switch (self.mediaType) {
             case MediaTypeImage:
-                texture = self.texture;
+                [texArr addObject:self.texture];
                 break;
             case MediaTypeNone:
                 break;
             case MediaTypeVideo:
             case MediaTypeAudio:
+
+                pixelBuffer = [self.m3u8T getBuffer]; // 从CMSampleBuffer读取CVPixelBuffer，
+            [texArr addObjectsFromArray:[self getVideoTextures:pixelBuffer]];
                 break;
         }
-        [renderEncoder setFragmentTexture:texture
-                                  atIndex:AAPLTextureIndexBaseColor];
-
+        for (int i = 0; i < texArr.count; i++) {
+            [renderEncoder setFragmentTexture:texArr[i]
+                                      atIndex:i];
+//            [renderEncoder setFragmentTexture:texArr[i]
+//                                      atIndex:AAPLTextureIndexBaseColor];
+        }
+        
+//        if (pixelBuffer) {
+//                CVPixelBufferRelease(pixelBuffer);
+//        }
         // Draw the triangles.
         [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle
                           vertexStart:0
@@ -258,6 +341,8 @@ static MtkMgr *_oneSharedMM;
 
         // Schedule a present once the framebuffer is complete using the current drawable
         [commandBuffer presentDrawable:view.currentDrawable];
+
+
     }
 
     // Finalize rendering here & push the command buffer to the GPU

@@ -18,7 +18,6 @@
 		EB456F9823B600E6000C3939 /* PlayerDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB456F9723B600E6000C3939 /* PlayerDemoUITests.swift */; };
 		EB639AF723D2FF6300026310 /* timg.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB639AF623D2FF6300026310 /* timg.jpeg */; };
 		EB6FD55923D40779008FC5FE /* MtkMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6FD55823D40779008FC5FE /* MtkMgr.m */; };
-		EB6FD55C23D40EB9008FC5FE /* AAPLShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = EB6FD55A23D40EB8008FC5FE /* AAPLShaders.metal */; };
 		EB6FD55E23D410A4008FC5FE /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FD55D23D410A4008FC5FE /* TestVC.swift */; };
 		EB6FD56023D412E2008FC5FE /* 111.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB6FD55F23D412E2008FC5FE /* 111.jpeg */; };
 		EB6FD56323D423A2008FC5FE /* 123.png in Resources */ = {isa = PBXBuildFile; fileRef = EB6FD56223D423A2008FC5FE /* 123.png */; };
@@ -47,6 +46,44 @@
 		EB8E9DC323C46EBA00F3BBC5 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9DBC23C46EB900F3BBC5 /* libswscale.a */; };
 		EB8E9DC523C47FEE00F3BBC5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9DC423C47FED00F3BBC5 /* AudioToolbox.framework */; };
 		EB8E9DC823C48D7100F3BBC5 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = EB8E9DC723C48BB600F3BBC5 /* video.mp4 */; };
+		EBE33C7E23D59BF100FEE131 /* EG_Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = EBE33C7D23D59BF100FEE131 /* EG_Shaders.metal */; };
+		EBEA2C0A23D560D900896C1A /* m3u8Test.m in Sources */ = {isa = PBXBuildFile; fileRef = EB14DE1F23C851B900EBE98B /* m3u8Test.m */; };
+		EBEA2C0B23D560D900896C1A /* ffmpeg_hw.c in Sources */ = {isa = PBXBuildFile; fileRef = EB8E9D2423C46EB400F3BBC5 /* ffmpeg_hw.c */; };
+		EBEA2C0C23D560D900896C1A /* LYAssetReader.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3A1F4723D160AD00AC09EE /* LYAssetReader.m */; };
+		EBEA2C0D23D560D900896C1A /* ffmpeg_cuvid.c in Sources */ = {isa = PBXBuildFile; fileRef = EB8E9D1F23C46EB400F3BBC5 /* ffmpeg_cuvid.c */; };
+		EBEA2C0E23D560D900896C1A /* cmdutils.c in Sources */ = {isa = PBXBuildFile; fileRef = EB8E9D2723C46EB400F3BBC5 /* cmdutils.c */; };
+		EBEA2C0F23D560D900896C1A /* ffmpeg_opt.c in Sources */ = {isa = PBXBuildFile; fileRef = EB8E9D1E23C46EB400F3BBC5 /* ffmpeg_opt.c */; };
+		EBEA2C1023D560D900896C1A /* MtkMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6FD55823D40779008FC5FE /* MtkMgr.m */; };
+		EBEA2C1123D560D900896C1A /* ttt.c in Sources */ = {isa = PBXBuildFile; fileRef = EB8E9D2A23C46EB400F3BBC5 /* ttt.c */; };
+		EBEA2C1223D560D900896C1A /* ffmpeg_filter.c in Sources */ = {isa = PBXBuildFile; fileRef = EB8E9D2323C46EB400F3BBC5 /* ffmpeg_filter.c */; };
+		EBEA2C1323D560D900896C1A /* AAPLImage.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6FD56423D42EE5008FC5FE /* AAPLImage.m */; };
+		EBEA2C1423D560D900896C1A /* ffmpeg.c in Sources */ = {isa = PBXBuildFile; fileRef = EB8E9D2923C46EB400F3BBC5 /* ffmpeg.c */; };
+		EBEA2C1523D560D900896C1A /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FD55D23D410A4008FC5FE /* TestVC.swift */; };
+		EBEA2C1723D560D900896C1A /* MTKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3A1F4123D157EF00AC09EE /* MTKManager.m */; };
+		EBEA2C1823D560D900896C1A /* ffmpegTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8E9CCD23C359BF00F3BBC5 /* ffmpegTest.m */; };
+		EBEA2C1923D560D900896C1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB456F7523B600E3000C3939 /* AppDelegate.swift */; };
+		EBEA2C1A23D560D900896C1A /* ffmpeg_videotoolbox.c in Sources */ = {isa = PBXBuildFile; fileRef = EB8E9D2B23C46EB400F3BBC5 /* ffmpeg_videotoolbox.c */; };
+		EBEA2C1C23D560D900896C1A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9DC423C47FED00F3BBC5 /* AudioToolbox.framework */; };
+		EBEA2C1D23D560D900896C1A /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9DB723C46EB900F3BBC5 /* libavfilter.a */; };
+		EBEA2C1E23D560D900896C1A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9CC623C358C200F3BBC5 /* AVFoundation.framework */; };
+		EBEA2C1F23D560D900896C1A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9CC423C358B900F3BBC5 /* CoreMedia.framework */; };
+		EBEA2C2023D560D900896C1A /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9DB923C46EB900F3BBC5 /* libavformat.a */; };
+		EBEA2C2123D560D900896C1A /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9DBB23C46EB900F3BBC5 /* libswresample.a */; };
+		EBEA2C2223D560D900896C1A /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9CC223C3589900F3BBC5 /* VideoToolbox.framework */; };
+		EBEA2C2323D560D900896C1A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9CC023C3587900F3BBC5 /* libz.tbd */; };
+		EBEA2C2423D560D900896C1A /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9DB623C46EB900F3BBC5 /* libavutil.a */; };
+		EBEA2C2523D560D900896C1A /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9CBE23C3586F00F3BBC5 /* libiconv.tbd */; };
+		EBEA2C2623D560D900896C1A /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9DBA23C46EB900F3BBC5 /* libavdevice.a */; };
+		EBEA2C2723D560D900896C1A /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9DBC23C46EB900F3BBC5 /* libswscale.a */; };
+		EBEA2C2823D560D900896C1A /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9CBC23C3586300F3BBC5 /* libbz2.tbd */; };
+		EBEA2C2923D560D900896C1A /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E9DB823C46EB900F3BBC5 /* libavcodec.a */; };
+		EBEA2C2B23D560D900896C1A /* timg.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB639AF623D2FF6300026310 /* timg.jpeg */; };
+		EBEA2C2C23D560D900896C1A /* 123.png in Resources */ = {isa = PBXBuildFile; fileRef = EB6FD56223D423A2008FC5FE /* 123.png */; };
+		EBEA2C2D23D560D900896C1A /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = EB8E9DC723C48BB600F3BBC5 /* video.mp4 */; };
+		EBEA2C2E23D560D900896C1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB456F8023B600E6000C3939 /* LaunchScreen.storyboard */; };
+		EBEA2C2F23D560D900896C1A /* 111.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB6FD55F23D412E2008FC5FE /* 111.jpeg */; };
+		EBEA2C3023D560D900896C1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB456F7E23B600E6000C3939 /* Preview Assets.xcassets */; };
+		EBEA2C3123D560D900896C1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB456F7B23B600E6000C3939 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,8 +125,6 @@
 		EB639AF623D2FF6300026310 /* timg.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = timg.jpeg; sourceTree = "<group>"; };
 		EB6FD55723D40779008FC5FE /* MtkMgr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MtkMgr.h; sourceTree = "<group>"; };
 		EB6FD55823D40779008FC5FE /* MtkMgr.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MtkMgr.m; sourceTree = "<group>"; };
-		EB6FD55A23D40EB8008FC5FE /* AAPLShaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = AAPLShaders.metal; sourceTree = "<group>"; };
-		EB6FD55B23D40EB8008FC5FE /* AAPLShaderTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLShaderTypes.h; sourceTree = "<group>"; };
 		EB6FD55D23D410A4008FC5FE /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
 		EB6FD55F23D412E2008FC5FE /* 111.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 111.jpeg; sourceTree = "<group>"; };
 		EB6FD56123D421AB008FC5FE /* Image.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = Image.tga; sourceTree = "<group>"; };
@@ -244,6 +279,11 @@
 		EB8E9DBC23C46EB900F3BBC5 /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswscale.a; sourceTree = "<group>"; };
 		EB8E9DC423C47FED00F3BBC5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		EB8E9DC723C48BB600F3BBC5 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
+		EBE33C7C23D59BD300FEE131 /* EG_ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EG_ShaderTypes.h; sourceTree = "<group>"; };
+		EBE33C7D23D59BF100FEE131 /* EG_Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = EG_Shaders.metal; sourceTree = "<group>"; };
+		EBEA2C0723D55E9B00896C1A /* PlayerDemo copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PlayerDemo copy-Info.plist"; path = "/Users/easerliu/Projects/PlayerDemo/PlayerDemo copy-Info.plist"; sourceTree = "<absolute>"; };
+		EBEA2C3523D560D900896C1A /* PlayerDemoMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerDemoMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBEA2C3623D560DA00896C1A /* PlayerDemo copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PlayerDemo copy2-Info.plist"; path = "/Users/easerliu/Projects/PlayerDemo/PlayerDemo copy2-Info.plist"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +322,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EBEA2C1B23D560D900896C1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBEA2C1C23D560D900896C1A /* AudioToolbox.framework in Frameworks */,
+				EBEA2C1D23D560D900896C1A /* libavfilter.a in Frameworks */,
+				EBEA2C1E23D560D900896C1A /* AVFoundation.framework in Frameworks */,
+				EBEA2C1F23D560D900896C1A /* CoreMedia.framework in Frameworks */,
+				EBEA2C2023D560D900896C1A /* libavformat.a in Frameworks */,
+				EBEA2C2123D560D900896C1A /* libswresample.a in Frameworks */,
+				EBEA2C2223D560D900896C1A /* VideoToolbox.framework in Frameworks */,
+				EBEA2C2323D560D900896C1A /* libz.tbd in Frameworks */,
+				EBEA2C2423D560D900896C1A /* libavutil.a in Frameworks */,
+				EBEA2C2523D560D900896C1A /* libiconv.tbd in Frameworks */,
+				EBEA2C2623D560D900896C1A /* libavdevice.a in Frameworks */,
+				EBEA2C2723D560D900896C1A /* libswscale.a in Frameworks */,
+				EBEA2C2823D560D900896C1A /* libbz2.tbd in Frameworks */,
+				EBEA2C2923D560D900896C1A /* libavcodec.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -293,6 +354,8 @@
 				EB456F9623B600E6000C3939 /* PlayerDemoUITests */,
 				EB456F7323B600E3000C3939 /* Products */,
 				EB456FA523B60542000C3939 /* Frameworks */,
+				EBEA2C0723D55E9B00896C1A /* PlayerDemo copy-Info.plist */,
+				EBEA2C3623D560DA00896C1A /* PlayerDemo copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -302,6 +365,7 @@
 				EB456F7223B600E3000C3939 /* PlayerDemo.app */,
 				EB456F8823B600E6000C3939 /* PlayerDemoTests.xctest */,
 				EB456F9323B600E6000C3939 /* PlayerDemoUITests.xctest */,
+				EBEA2C3523D560D900896C1A /* PlayerDemoMac.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -332,8 +396,8 @@
 				EB6FD56423D42EE5008FC5FE /* AAPLImage.m */,
 				EB6FD55723D40779008FC5FE /* MtkMgr.h */,
 				EB6FD55823D40779008FC5FE /* MtkMgr.m */,
-				EB6FD55A23D40EB8008FC5FE /* AAPLShaders.metal */,
-				EB6FD55B23D40EB8008FC5FE /* AAPLShaderTypes.h */,
+				EBE33C7D23D59BF100FEE131 /* EG_Shaders.metal */,
+				EBE33C7C23D59BD300FEE131 /* EG_ShaderTypes.h */,
 				EB8E9CCB23C359BE00F3BBC5 /* PlayerDemo-Bridging-Header.h */,
 			);
 			path = PlayerDemo;
@@ -676,6 +740,23 @@
 			productReference = EB456F9323B600E6000C3939 /* PlayerDemoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		EBEA2C0823D560D900896C1A /* PlayerDemoMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EBEA2C3223D560D900896C1A /* Build configuration list for PBXNativeTarget "PlayerDemoMac" */;
+			buildPhases = (
+				EBEA2C0923D560D900896C1A /* Sources */,
+				EBEA2C1B23D560D900896C1A /* Frameworks */,
+				EBEA2C2A23D560D900896C1A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PlayerDemoMac;
+			productName = PlayerDemo;
+			productReference = EBEA2C3523D560D900896C1A /* PlayerDemoMac.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -716,6 +797,7 @@
 				EB456F7123B600E3000C3939 /* PlayerDemo */,
 				EB456F8723B600E6000C3939 /* PlayerDemoTests */,
 				EB456F9223B600E6000C3939 /* PlayerDemoUITests */,
+				EBEA2C0823D560D900896C1A /* PlayerDemoMac */,
 			);
 		};
 /* End PBXProject section */
@@ -749,6 +831,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EBEA2C2A23D560D900896C1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBEA2C2B23D560D900896C1A /* timg.jpeg in Resources */,
+				EBEA2C2C23D560D900896C1A /* 123.png in Resources */,
+				EBEA2C2D23D560D900896C1A /* video.mp4 in Resources */,
+				EBEA2C2E23D560D900896C1A /* LaunchScreen.storyboard in Resources */,
+				EBEA2C2F23D560D900896C1A /* 111.jpeg in Resources */,
+				EBEA2C3023D560D900896C1A /* Preview Assets.xcassets in Resources */,
+				EBEA2C3123D560D900896C1A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -766,9 +862,9 @@
 				EB8E9D3523C46EB400F3BBC5 /* ttt.c in Sources */,
 				EB8E9D2F23C46EB400F3BBC5 /* ffmpeg_filter.c in Sources */,
 				EB6FD56623D42EE5008FC5FE /* AAPLImage.m in Sources */,
+				EBE33C7E23D59BF100FEE131 /* EG_Shaders.metal in Sources */,
 				EB8E9D3423C46EB400F3BBC5 /* ffmpeg.c in Sources */,
 				EB6FD55E23D410A4008FC5FE /* TestVC.swift in Sources */,
-				EB6FD55C23D40EB9008FC5FE /* AAPLShaders.metal in Sources */,
 				EB3A1F4223D157EF00AC09EE /* MTKManager.m in Sources */,
 				EB8E9CCE23C359BF00F3BBC5 /* ffmpegTest.m in Sources */,
 				EB456F7623B600E3000C3939 /* AppDelegate.swift in Sources */,
@@ -789,6 +885,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB456F9823B600E6000C3939 /* PlayerDemoUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBEA2C0923D560D900896C1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBEA2C0A23D560D900896C1A /* m3u8Test.m in Sources */,
+				EBEA2C0B23D560D900896C1A /* ffmpeg_hw.c in Sources */,
+				EBEA2C0C23D560D900896C1A /* LYAssetReader.m in Sources */,
+				EBEA2C0D23D560D900896C1A /* ffmpeg_cuvid.c in Sources */,
+				EBEA2C0E23D560D900896C1A /* cmdutils.c in Sources */,
+				EBEA2C0F23D560D900896C1A /* ffmpeg_opt.c in Sources */,
+				EBEA2C1023D560D900896C1A /* MtkMgr.m in Sources */,
+				EBEA2C1123D560D900896C1A /* ttt.c in Sources */,
+				EBEA2C1223D560D900896C1A /* ffmpeg_filter.c in Sources */,
+				EBEA2C1323D560D900896C1A /* AAPLImage.m in Sources */,
+				EBEA2C1423D560D900896C1A /* ffmpeg.c in Sources */,
+				EBEA2C1523D560D900896C1A /* TestVC.swift in Sources */,
+				EBEA2C1723D560D900896C1A /* MTKManager.m in Sources */,
+				EBEA2C1823D560D900896C1A /* ffmpegTest.m in Sources */,
+				EBEA2C1923D560D900896C1A /* AppDelegate.swift in Sources */,
+				EBEA2C1A23D560D900896C1A /* ffmpeg_videotoolbox.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1082,6 +1201,75 @@
 			};
 			name = Release;
 		};
+		EBEA2C3323D560D900896C1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"PlayerDemo/Preview Content\"";
+				DEVELOPMENT_TEAM = 2QG6YWQHVH;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "PlayerDemo copy2-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/PlayerDemo/SupportFiles/FFmpeg-iOS/lib\"",
+					"$(PROJECT_DIR)/PlayerDemo/SupportFiles/FFmpeg-iOS/lib",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				OTHER_LDFLAGS = "-all_load ";
+				PRODUCT_BUNDLE_IDENTIFIER = EG.PlayerDemo;
+				PRODUCT_NAME = PlayerDemoMac;
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "PlayerDemo/PlayerDemo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/PlayerDemo/SupportFiles/FFmpeg-iOS/include\"",
+					"\"$(SRCROOT)/PlayerDemo/SupportFiles/fftools\"",
+				);
+				VALID_ARCHS = "x86_64 i386";
+			};
+			name = Debug;
+		};
+		EBEA2C3423D560D900896C1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"PlayerDemo/Preview Content\"";
+				DEVELOPMENT_TEAM = 2QG6YWQHVH;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "PlayerDemo copy2-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/PlayerDemo/SupportFiles/FFmpeg-iOS/lib\"",
+					"$(PROJECT_DIR)/PlayerDemo/SupportFiles/FFmpeg-iOS/lib",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				OTHER_LDFLAGS = "-all_load ";
+				PRODUCT_BUNDLE_IDENTIFIER = EG.PlayerDemo;
+				PRODUCT_NAME = PlayerDemoMac;
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "PlayerDemo/PlayerDemo-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/PlayerDemo/SupportFiles/FFmpeg-iOS/include\"",
+					"\"$(SRCROOT)/PlayerDemo/SupportFiles/fftools\"",
+				);
+				VALID_ARCHS = "x86_64 i386";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1117,6 +1305,15 @@
 			buildConfigurations = (
 				EB456FA323B600E6000C3939 /* Debug */,
 				EB456FA423B600E6000C3939 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EBEA2C3223D560D900896C1A /* Build configuration list for PBXNativeTarget "PlayerDemoMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EBEA2C3323D560D900896C1A /* Debug */,
+				EBEA2C3423D560D900896C1A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
