@@ -33,6 +33,7 @@ static MtkMgr *_oneSharedMM;
 @property (nonatomic, assign) vector_uint2 viewportSize;
 @property (nonatomic, strong) id<MTLTexture> texture;
 @property (nonatomic, strong) id<MTLBuffer> vertices;
+@property (nonatomic, strong) id<MTLBuffer> convertMatrix;
 @property (nonatomic, assign) NSUInteger numVertices;
 @property (nonatomic, strong) id<MTLRenderPipelineState> pipelineState;
 // The command Queue used to submit commands.
@@ -58,8 +59,27 @@ static MtkMgr *_oneSharedMM;
     CVMetalTextureCacheCreate(NULL, NULL, _mtkView.device, NULL, &_textureCache); // TextureCache的创建
     [self setupPipeline];
     [self setupVertex];
+//    [self setupMatrix];
 }
 
+- (void)setupMatrix { // 设置好转换的矩阵
+    matrix_float3x3 kColorConversion601FullRangeMatrix = (matrix_float3x3){
+        (simd_float3){1.0,    1.0,    1.0},
+        (simd_float3){0.0,    -0.343, 1.765},
+        (simd_float3){1.4,    -0.711, 0.0},
+    };
+    
+    vector_float3 kColorConversion601FullRangeOffset = (vector_float3){ -(16.0/255.0), -0.5, -0.5}; // 这个是偏移
+    
+    EGConvertMatrix matrix;
+    // 设置参数
+    matrix.matrix = kColorConversion601FullRangeMatrix;
+    matrix.offset = kColorConversion601FullRangeOffset;
+    
+    self.convertMatrix = [self.mtkView.device newBufferWithBytes:&matrix
+                                                          length:sizeof(EGConvertMatrix)
+                                                         options:MTLResourceStorageModeShared];
+}
 // 设置渲染管道
 -(void)setupPipeline {
     
@@ -329,6 +349,9 @@ static MtkMgr *_oneSharedMM;
 //                                      atIndex:EGTextureIndexBaseColor];
         }
         
+//        [renderEncoder setFragmentBuffer:self.convertMatrix
+//                                  offset:0
+//                                 atIndex:EGFragmentInputIndexMatrix];
 //        if (pixelBuffer) {
 //                CVPixelBufferRelease(pixelBuffer);
 //        }
