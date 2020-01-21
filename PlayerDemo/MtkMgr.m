@@ -160,12 +160,15 @@ static MtkMgr *_oneSharedMM;
 - (id<MTLTexture>)loadTextureWithImageFile: (NSURL *) url {
     NSData * data = [NSData dataWithContentsOfURL:url];
     UIImage * image = [UIImage imageWithData:data];
-    
+
     self.mtkView.drawableSize = image.size;
     NSLog(@"size is %f, %f, %f, %f,", self.mtkView.drawableSize.height, self.mtkView.drawableSize.width, image.size.height,image.size.width);
     NSError *err = nil;
     MTKTextureLoader *textureLoader = [[MTKTextureLoader alloc] initWithDevice:self.mtkView.device];
     id<MTLTexture> texture = [textureLoader newTextureWithCGImage:image.CGImage options:@{MTKTextureLoaderOptionSRGB: @NO} error:&err];
+    
+//    CVPixelBufferRef buffer = [self pixelBufferFromImageFile:url];
+//    id<MTLTexture> texture = [self getImgTextures:buffer];
     
     return texture;
 }
@@ -220,6 +223,27 @@ static MtkMgr *_oneSharedMM;
     CVPixelBufferUnlockBaseAddress(pxbuffer, 0);
     
     return pxbuffer;
+}
+- (id<MTLTexture>)getImgTextures:(CVPixelBufferRef) pixelBuffer{
+    
+    NSAssert(pixelBuffer, @"pixelBuffer is nil");
+    id<MTLTexture> textureY = nil;
+    // textureY 设置
+    {
+        size_t width = CVPixelBufferGetWidthOfPlane(pixelBuffer, 0);
+        size_t height = CVPixelBufferGetHeightOfPlane(pixelBuffer, 0);
+        MTLPixelFormat pixelFormat = MTLPixelFormatR8Unorm; // 这里的颜色格式不是RGBA
+
+        CVMetalTextureRef texture = NULL; // CoreVideo的Metal纹理
+        CVReturn status = CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, self.textureCache, pixelBuffer, NULL, pixelFormat, width, height, 0, &texture);
+        if(status == kCVReturnSuccess)
+        {
+            textureY = CVMetalTextureGetTexture(texture); // 转成Metal用的纹理
+            CFRelease(texture);
+        }
+    }
+    
+    return textureY;
 }
 - (NSMutableArray<id<MTLTexture>> *)getVideoTextures:(CVPixelBufferRef) pixelBuffer{
     NSMutableArray<id<MTLTexture>> * texArr = [[NSMutableArray alloc] init];

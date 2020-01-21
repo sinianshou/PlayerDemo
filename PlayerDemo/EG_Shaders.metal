@@ -109,16 +109,3 @@ lysamplingShader(RasterizerData input [[stage_in]], // stage_in表示这个数�
     
 }
 
-
-fragment half4
-halfsamplingShader(RasterizerData in [[ stage_in ]],
-               texture2d<float> lumaTexture [[ texture(0) ]],
-               texture2d<float> chromaTexture [[ texture(1) ]],
-               sampler textureSampler [[ sampler(0) ]],
-               constant float3x3 *yuvToRGBMatrix [[ buffer(0) ]])
-{
-    float3 yuv;
-    yuv.x = lumaTexture.sample(textureSampler, in.textureCoordinate).r - float(0.062745);
-    yuv.yz = chromaTexture.sample(textureSampler, in.textureCoordinate).rg - float2(0.5);
-    return half4(half3((*yuvToRGBMatrix) * yuv), yuv.x);
-}

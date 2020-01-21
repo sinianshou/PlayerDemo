@@ -15,8 +15,9 @@ class TestVC: UIViewController {
         let mgr = MtkMgr.shared();
         mgr.m3u8T = m3u8!;
         var url = Bundle.main.url(forResource: "123", withExtension: "png")!
-        url = Bundle.main.url(forResource: "timg", withExtension: "jpeg")!
-        url = Bundle.main.url(forResource: "video", withExtension: "mp4")!
+//        url = Bundle.main.url(forResource: "timg", withExtension: "jpeg")!
+//        url = Bundle.main.url(forResource: "video", withExtension: "mp4")!
+        
 //        url = Bundle.main.url(forResource: "Image", withExtension: "tga")!
         mgr.displayImageFile(url)
         mgr.mtkView.frame = self.view.bounds;
