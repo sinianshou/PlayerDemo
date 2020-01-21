@@ -33,50 +33,41 @@ typedef struct
 } RasterizerData;
 
 // Vertex Function
-vertex RasterizerData
-vertexShader(uint vertexID [[ vertex_id ]],
-             constant EGVertex1 *vertexArray [[ buffer(EGVertex1InputIndexVertices) ]],
-             constant vector_uint2 *viewportSizePointer  [[ buffer(EGVertex1InputIndexViewportSize) ]])
-
-{
-
-    RasterizerData out;
-
-    // Index into the array of positions to get the current vertex.
-    //   Positions are specified in pixel dimensions (i.e. a value of 100 is 100 pixels from
-    //   the origin)
-    float2 pixelSpacePosition = vertexArray[vertexID].position.xy;
-
-    // Get the viewport size and cast to float.
-    float2 viewportSize = float2(*viewportSizePointer);
-
-    // To convert from positions in pixel space to positions in clip-space,
-    //  divide the pixel coordinates by half the size of the viewport.
-    // Z is set to 0.0 and w to 1.0 because this is 2D sample.
-    out.position = vector_float4(0.0, 0.0, 0.0, 1.0);
-    out.position.xy = pixelSpacePosition / (viewportSize / 2.0);
-
-    // Pass the input textureCoordinate straight to the output RasterizerData. This value will be
-    //   interpolated with the other textureCoordinate values in the vertices that make up the
-    //   triangle.
-    out.textureCoordinate = vertexArray[vertexID].textureCoordinate;
-
-    return out;
-}
-
-//From LY
 //vertex RasterizerData
-//vertexShader(uint vertexID [[ vertex_id ]], // vertex_id是顶点shader每次处理的index，用于定位当前的顶点
-//             constant EGVertex2 *vertexArray [[ buffer(EGVertex1InputIndexVertices) ]]) { // buffer表明是缓存数据，0是索引
+//aplvertexShader(uint vertexID [[ vertex_id ]],
+//             constant EGVertex1 *vertexArray [[ buffer(EGVertex1InputIndexVertices) ]],
+//             constant vector_uint2 *viewportSizePointer  [[ buffer(EGVertex1InputIndexViewportSize) ]])
+//
+//{
+//
 //    RasterizerData out;
-//    out.position = vertexArray[vertexID].position;
+//
+//    // Index into the array of positions to get the current vertex.
+//    //   Positions are specified in pixel dimensions (i.e. a value of 100 is 100 pixels from
+//    //   the origin)
+//    float2 pixelSpacePosition = vertexArray[vertexID].position.xy;
+//
+//    // Get the viewport size and cast to float.
+//    float2 viewportSize = float2(*viewportSizePointer);
+//
+//    // To convert from positions in pixel space to positions in clip-space,
+//    //  divide the pixel coordinates by half the size of the viewport.
+//    // Z is set to 0.0 and w to 1.0 because this is 2D sample.
+//    out.position = vector_float4(0.0, 0.0, 0.0, 1.0);
+//    out.position.xy = pixelSpacePosition / (viewportSize / 2.0);
+//
+//    // Pass the input textureCoordinate straight to the output RasterizerData. This value will be
+//    //   interpolated with the other textureCoordinate values in the vertices that make up the
+//    //   triangle.
 //    out.textureCoordinate = vertexArray[vertexID].textureCoordinate;
+//
 //    return out;
 //}
 
+
 // Fragment function
 fragment float4
-samplingShader(RasterizerData in [[stage_in]],
+aplsamplingShader(RasterizerData in [[stage_in]],
                texture2d<half> colorTexture [[ texture(EGTextureIndexBaseColor) ]])
 {
     constexpr sampler textureSampler (mag_filter::linear,
@@ -90,20 +81,44 @@ samplingShader(RasterizerData in [[stage_in]],
 }
 
 //From LY
-//fragment float4
-//samplingShader(RasterizerData input [[stage_in]], // stage_in表示这个数据来自光栅化。（光栅化是顶点处理之后的步骤，业务层无法修改）
-//               texture2d<float> textureY [[ texture(EGFragmentTextureIndexTextureY) ]], // texture表明是纹理数据，EGFragmentTextureIndexTextureY是索引
-//               texture2d<float> textureUV [[ texture(EGFragmentTextureIndexTextureUV) ]], // texture表明是纹理数据，EGFragmentTextureIndexTextureUV是索引
-//               constant EGConvertMatrix *convertMatrix [[ buffer(EGFragmentInputIndexMatrix) ]]) //buffer表明是缓存数据，EGFragmentInputIndexMatrix是索引
-//{
-//    constexpr sampler textureSampler (mag_filter::linear,
-//                                      min_filter::linear); // sampler是采样器
-//
-//    float3 yuv = float3(textureY.sample(textureSampler, input.textureCoordinate).r,
-//                          textureUV.sample(textureSampler, input.textureCoordinate).rg);
-//
-//    float3 rgb = convertMatrix->matrix * (yuv + convertMatrix->offset);
-//
-//    return float4(rgb, 1.0);
-//}
+// Vertex Function
+vertex RasterizerData
+lyvertexShader(uint vertexID [[ vertex_id ]], // vertex_id是顶点shader每次处理的index，用于定位当前的顶点
+             constant EGVertex *vertexArray [[ buffer(EGVertex1InputIndexVertices) ]]) { // buffer表明是缓存数据，0是索引
+    RasterizerData out;
+    out.position = vertexArray[vertexID].position;
+    out.textureCoordinate = vertexArray[vertexID].textureCoordinate;
+    return out;
+}
+// Fragment function
+fragment float4
+lysamplingShader(RasterizerData input [[stage_in]], // stage_in表示这个数据来自光栅化。（光栅化是顶点处理之后的步骤，业务层无法修改）
+               texture2d<float> textureY [[ texture(EGFragmentTextureIndexTextureY) ]], // texture表明是纹理数据，EGFragmentTextureIndexTextureY是索引
+               texture2d<float> textureUV [[ texture(EGFragmentTextureIndexTextureUV) ]], // texture表明是纹理数据，EGFragmentTextureIndexTextureUV是索引
+               constant EGConvertMatrix *convertMatrix [[ buffer(EGFragmentInputIndexMatrix) ]]) //buffer表明是缓存数据，EGFragmentInputIndexMatrix是索引
+{
+    constexpr sampler textureSampler (mag_filter::linear,
+                                      min_filter::linear); // sampler是采样器
 
+    float3 yuv = float3(textureY.sample(textureSampler, input.textureCoordinate).r,
+                          textureUV.sample(textureSampler, input.textureCoordinate).rg);
+
+    float3 rgb = convertMatrix->matrix * (yuv + convertMatrix->offset);
+
+    return float4(rgb, 1.0);
+    
+}
+
+
+fragment half4
+halfsamplingShader(RasterizerData in [[ stage_in ]],
+               texture2d<float> lumaTexture [[ texture(0) ]],
+               texture2d<float> chromaTexture [[ texture(1) ]],
+               sampler textureSampler [[ sampler(0) ]],
+               constant float3x3 *yuvToRGBMatrix [[ buffer(0) ]])
+{
+    float3 yuv;
+    yuv.x = lumaTexture.sample(textureSampler, in.textureCoordinate).r - float(0.062745);
+    yuv.yz = chromaTexture.sample(textureSampler, in.textureCoordinate).rg - float2(0.5);
+    return half4(half3((*yuvToRGBMatrix) * yuv), yuv.x);
+}

@@ -125,7 +125,7 @@
 
 // 设置顶点
 - (void)setupVertex {
-    static const EGVertex2 quadVertices[] =
+    static const EGVertex quadVertices[] =
     {   // 顶点坐标，分别是x、y、z、w；    纹理坐标，x、y；
         { {  1.0, -1.0, 0.0, 1.0 },  { 1.f, 1.f } },
         { { -1.0, -1.0, 0.0, 1.0 },  { 0.f, 1.f } },
@@ -138,7 +138,7 @@
     self.vertices = [self.mtkView.device newBufferWithBytes:quadVertices
                                                      length:sizeof(quadVertices)
                                                     options:MTLResourceStorageModeShared]; // 创建顶点缓存
-    self.numVertices = sizeof(quadVertices) / sizeof(EGVertex2); // 顶点个数
+    self.numVertices = sizeof(quadVertices) / sizeof(EGVertex); // 顶点个数
 }
 
 // 设置纹理

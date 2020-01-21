@@ -31,20 +31,20 @@ typedef enum EGTextureIndex
 //    you can be sure that the layout of the vertex array in the code matches the layout that
 //    the vertex shader expects
 
-typedef struct
-{
-    // Positions in pixel space. A value of 100 indicates 100 pixels from the origin/center.
-    vector_float2 position;
-
-    // 2D texture coordinate
-    vector_float2 textureCoordinate;
-} EGVertex1;
+//typedef struct
+//{
+//    // Positions in pixel space. A value of 100 indicates 100 pixels from the origin/center.
+//    vector_float2 position;
+//
+//    // 2D texture coordinate
+//    vector_float2 textureCoordinate;
+//} EGVertex1;
 
 typedef struct
 {
     vector_float4 position;
     vector_float2 textureCoordinate;
-} EGVertex2;
+} EGVertex;
 
 typedef struct {
     matrix_float3x3 matrix;

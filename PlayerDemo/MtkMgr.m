@@ -86,9 +86,11 @@ static MtkMgr *_oneSharedMM;
     /// Create the render pipeline.
 
     // Load the shaders from the default library
+    NSString * prefix = @"apl";
     id<MTLLibrary> defaultLibrary = [self.mtkView.device newDefaultLibrary];
-    id<MTLFunction> vertexFunction = [defaultLibrary newFunctionWithName:@"vertexShader"];
-    id<MTLFunction> fragmentFunction = [defaultLibrary newFunctionWithName:@"samplingShader"];
+    id<MTLFunction> vertexFunction = [defaultLibrary newFunctionWithName:[prefix stringByAppendingString:@"vertexShader"]];
+    vertexFunction = [defaultLibrary newFunctionWithName:@"lyvertexShader"];
+    id<MTLFunction> fragmentFunction = [defaultLibrary newFunctionWithName:[prefix stringByAppendingString:@"samplingShader"]];
 
     // Set up a descriptor for creating a pipeline state object
     MTLRenderPipelineDescriptor *pipelineStateDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
@@ -109,28 +111,28 @@ static MtkMgr *_oneSharedMM;
 - (void)setupVertex {
     
     // Set up a simple MTLBuffer with vertices which include texture coordinates
-    static const EGVertex1 quadVertices[] =
-    {
-        // Pixel positions, Texture coordinates
-        { {  250,  -250 },  { 1.f, 1.f } },
-        { { -250,  -250 },  { 0.f, 1.f } },
-        { { -250,   250 },  { 0.f, 0.f } },
-
-        { {  250,  -250 },  { 1.f, 1.f } },
-        { { -250,   250 },  { 0.f, 0.f } },
-        { {  250,   250 },  { 1.f, 0.f } },
-    };
-
-//        static const EGVertex2 quadVertices[] =
-//        {   // 顶点坐标，分别是x、y、z、w；    纹理坐标，x、y；
-//            { {  1.0, -1.0, 0.0, 1.0 },  { 1.f, 1.f } },
-//            { { -1.0, -1.0, 0.0, 1.0 },  { 0.f, 1.f } },
-//            { { -1.0,  1.0, 0.0, 1.0 },  { 0.f, 0.f } },
+//    static const EGVertex1 quadVertices[] =
+//    {
+//        // Pixel positions, Texture coordinates
+//        { {  250,  -250 },  { 1.f, 1.f } },
+//        { { -250,  -250 },  { 0.f, 1.f } },
+//        { { -250,   250 },  { 0.f, 0.f } },
 //
-//            { {  1.0, -1.0, 0.0, 1.0 },  { 1.f, 1.f } },
-//            { { -1.0,  1.0, 0.0, 1.0 },  { 0.f, 0.f } },
-//            { {  1.0,  1.0, 0.0, 1.0 },  { 1.f, 0.f } },
-//        };
+//        { {  250,  -250 },  { 1.f, 1.f } },
+//        { { -250,   250 },  { 0.f, 0.f } },
+//        { {  250,   250 },  { 1.f, 0.f } },
+//    };
+
+        static const EGVertex quadVertices[] =
+        {   // 顶点坐标，分别是x、y、z、w；    纹理坐标，x、y；
+            { {  1.0, -1.0, 0.0, 1.0 },  { 1.f, 1.f } },
+            { { -1.0, -1.0, 0.0, 1.0 },  { 0.f, 1.f } },
+            { { -1.0,  1.0, 0.0, 1.0 },  { 0.f, 0.f } },
+
+            { {  1.0, -1.0, 0.0, 1.0 },  { 1.f, 1.f } },
+            { { -1.0,  1.0, 0.0, 1.0 },  { 0.f, 0.f } },
+            { {  1.0,  1.0, 0.0, 1.0 },  { 1.f, 0.f } },
+        };
     
     // Create a vertex buffer, and initialize it with the quadVertices array
     self.vertices = [_mtkView.device newBufferWithBytes:quadVertices
@@ -138,9 +140,8 @@ static MtkMgr *_oneSharedMM;
                                     options:MTLResourceStorageModeShared];
 
     // Calculate the number of vertices by dividing the byte length by the size of each vertex
-    self.numVertices = sizeof(quadVertices) / sizeof(EGVertex1);
+    self.numVertices = sizeof(quadVertices) / sizeof(EGVertex);
     
-//    self.numVertices = sizeof(quadVertices) / sizeof(LYVertex); // 顶点个数
 }
 - (void)displayImageFile: (NSURL *) url{
     NSString * fileExtension = url.pathExtension;
@@ -233,7 +234,7 @@ static MtkMgr *_oneSharedMM;
         MTLPixelFormat pixelFormat = MTLPixelFormatR8Unorm; // 这里的颜色格式不是RGBA
 
         CVMetalTextureRef texture = NULL; // CoreVideo的Metal纹理
-        CVReturn status = CVMetalTextureCacheCreateTextureFromImage(NULL, self.textureCache, pixelBuffer, NULL, pixelFormat, width, height, 0, &texture);
+        CVReturn status = CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, self.textureCache, pixelBuffer, NULL, pixelFormat, width, height, 0, &texture);
         if(status == kCVReturnSuccess)
         {
             textureY = CVMetalTextureGetTexture(texture); // 转成Metal用的纹理
@@ -248,7 +249,7 @@ static MtkMgr *_oneSharedMM;
         MTLPixelFormat pixelFormat = MTLPixelFormatRG8Unorm; // 2-8bit的格式
         
         CVMetalTextureRef texture = NULL; // CoreVideo的Metal纹理
-        CVReturn status = CVMetalTextureCacheCreateTextureFromImage(NULL, self.textureCache, pixelBuffer, NULL, pixelFormat, width, height, 1, &texture);
+        CVReturn status = CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, self.textureCache, pixelBuffer, NULL, pixelFormat, width, height, 1, &texture);
         if(status == kCVReturnSuccess)
         {
             textureUV = CVMetalTextureGetTexture(texture); // 转成Metal用的纹理
@@ -319,7 +320,11 @@ static MtkMgr *_oneSharedMM;
         [renderEncoder setVertexBuffer:self.vertices
                                 offset:0
                               atIndex:EGVertex1InputIndexVertices];
-
+        
+//        [renderEncoder setFragmentBuffer:self.convertMatrix
+//                                  offset:0
+//                                 atIndex:EGFragmentInputIndexMatrix];
+        
         [renderEncoder setVertexBytes:&_viewportSize
                                length:sizeof(_viewportSize)
                               atIndex:EGVertex1InputIndexViewportSize];
@@ -349,9 +354,6 @@ static MtkMgr *_oneSharedMM;
 //                                      atIndex:EGTextureIndexBaseColor];
         }
         
-//        [renderEncoder setFragmentBuffer:self.convertMatrix
-//                                  offset:0
-//                                 atIndex:EGFragmentInputIndexMatrix];
 //        if (pixelBuffer) {
 //                CVPixelBufferRelease(pixelBuffer);
 //        }
