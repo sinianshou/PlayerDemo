@@ -59,7 +59,7 @@ static MtkMgr *_oneSharedMM;
     CVMetalTextureCacheCreate(NULL, NULL, _mtkView.device, NULL, &_textureCache); // TextureCache的创建
     [self setupPipeline];
     [self setupVertex];
-//    [self setupMatrix];
+    [self setupMatrix];
 }
 
 - (void)setupMatrix { // 设置好转换的矩阵
@@ -86,10 +86,9 @@ static MtkMgr *_oneSharedMM;
     /// Create the render pipeline.
 
     // Load the shaders from the default library
-    NSString * prefix = @"apl";
+    NSString * prefix = @"ly";
     id<MTLLibrary> defaultLibrary = [self.mtkView.device newDefaultLibrary];
-    id<MTLFunction> vertexFunction = [defaultLibrary newFunctionWithName:[prefix stringByAppendingString:@"vertexShader"]];
-    vertexFunction = [defaultLibrary newFunctionWithName:@"lyvertexShader"];
+    id<MTLFunction> vertexFunction = [defaultLibrary newFunctionWithName:@"lyvertexShader"];
     id<MTLFunction> fragmentFunction = [defaultLibrary newFunctionWithName:[prefix stringByAppendingString:@"samplingShader"]];
 
     // Set up a descriptor for creating a pipeline state object
@@ -158,17 +157,17 @@ static MtkMgr *_oneSharedMM;
     [self mtkView:self.mtkView drawableSizeWillChange:self.mtkView.drawableSize];
 }
 - (id<MTLTexture>)loadTextureWithImageFile: (NSURL *) url {
-    NSData * data = [NSData dataWithContentsOfURL:url];
-    UIImage * image = [UIImage imageWithData:data];
-
-    self.mtkView.drawableSize = image.size;
-    NSLog(@"size is %f, %f, %f, %f,", self.mtkView.drawableSize.height, self.mtkView.drawableSize.width, image.size.height,image.size.width);
-    NSError *err = nil;
-    MTKTextureLoader *textureLoader = [[MTKTextureLoader alloc] initWithDevice:self.mtkView.device];
-    id<MTLTexture> texture = [textureLoader newTextureWithCGImage:image.CGImage options:@{MTKTextureLoaderOptionSRGB: @NO} error:&err];
+//    NSData * data = [NSData dataWithContentsOfURL:url];
+//    UIImage * image = [UIImage imageWithData:data];
+//
+//    self.mtkView.drawableSize = image.size;
+//    NSLog(@"size is %f, %f, %f, %f,", self.mtkView.drawableSize.height, self.mtkView.drawableSize.width, image.size.height,image.size.width);
+//    NSError *err = nil;
+//    MTKTextureLoader *textureLoader = [[MTKTextureLoader alloc] initWithDevice:self.mtkView.device];
+//    id<MTLTexture> texture = [textureLoader newTextureWithCGImage:image.CGImage options:@{MTKTextureLoaderOptionSRGB: @NO} error:&err];
     
-//    CVPixelBufferRef buffer = [self pixelBufferFromImageFile:url];
-//    id<MTLTexture> texture = [self getImgTextures:buffer];
+    CVPixelBufferRef buffer = [self pixelBufferFromImageFile:url];
+    id<MTLTexture> texture = [self getImgTextures:buffer];
     
     return texture;
 }
@@ -191,7 +190,8 @@ static MtkMgr *_oneSharedMM;
     CVReturn status = CVPixelBufferCreate(kCFAllocatorDefault,
                                           frameWidth,
                                           frameHeight,
-                                          kCVPixelFormatType_32BGRA,
+//                                          kCVPixelFormatType_32BGRA,
+                                          kCVPixelFormatType_32ARGB,
                                           (__bridge CFDictionaryRef) options,
                                           &pxbuffer);
     
@@ -290,6 +290,10 @@ static MtkMgr *_oneSharedMM;
 //        [encoder setFragmentTexture:textureUV
 //                            atIndex:EGFragmentTextureIndexTextureUV]; // 设置纹理
     }
+    if (textureY.width != self.mtkView.frame.size.width) {
+        
+        self.mtkView.frame = CGRectMake(0, 0, self.mtkView.frame.size.width, self.mtkView.frame.size.width * textureY.height / textureY.width);
+    }
     return texArr;
 }
 #pragma __SETTER__
@@ -345,9 +349,9 @@ static MtkMgr *_oneSharedMM;
                                 offset:0
                               atIndex:EGVertex1InputIndexVertices];
         
-//        [renderEncoder setFragmentBuffer:self.convertMatrix
-//                                  offset:0
-//                                 atIndex:EGFragmentInputIndexMatrix];
+        [renderEncoder setFragmentBuffer:self.convertMatrix
+                                  offset:0
+                                 atIndex:EGFragmentInputIndexMatrix];
         
         [renderEncoder setVertexBytes:&_viewportSize
                                length:sizeof(_viewportSize)
