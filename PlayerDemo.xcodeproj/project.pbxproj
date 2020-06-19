@@ -444,9 +444,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		EB498484249CB3C80036C401 /* FFmpeg4 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FFmpeg4;
+			sourceTree = "<group>";
+		};
 		EB8E9CC823C3590B00F3BBC5 /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
+				EB498484249CB3C80036C401 /* FFmpeg4 */,
 				EB8E9DC623C48B8D00F3BBC5 /* src */,
 				EB8E9D3723C46EB900F3BBC5 /* FFmpeg-iOS */,
 				EB8E9D1C23C46EB400F3BBC5 /* fftools */,
